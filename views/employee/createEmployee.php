@@ -14,7 +14,7 @@ $departments=$conn->getAll("SELECT * FROM `departments`");
 
 $designations=$conn->getAll("SELECT * FROM `employee_designations`");
 ?>
-                                
+
 
 
 
@@ -24,8 +24,8 @@ $designations=$conn->getAll("SELECT * FROM `employee_designations`");
 //require_once("design.php");
 
 ?>
-    
-									
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,11 +80,11 @@ $designations=$conn->getAll("SELECT * FROM `employee_designations`");
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                               
+
 
     <?php
 //	require_once("emp1.html");
-	
+
 	?>
   <!DOCTYPE html>
 <html>
@@ -110,13 +110,13 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 /* The popup form - hidden by default */
 .form-popup {
-  display: none;
+
   position: absolute;
   bottom: 100;
   right: 0px;
   left:-19px;
   align:center;
-  
+
   border: 3px solid #f1f1f1;
   z-index: 0;
 }
@@ -181,16 +181,16 @@ body {font-family: Arial, Helvetica, sans-serif;}
     <h1>Enter Details</h1>
 
 
-    
+
        <label for="firstname"><b>First Name</b></label>
- 
+
     <input name="firstName" placeholder="Jon" required type="text">
- 
+
    <label for="lastname"><b>Last Name </b></label>
-    
+
    <input name="lastName" placeholder="Doe" required type="text">
    <label for="department"><b>Department </b></label>
-      
+
        <select id="department" name="department">
                                                 <?php foreach ($departments as $department) { ?>
                                                 <option value="<?=$department['name']?>"><?=$department['name']?></option>
@@ -198,9 +198,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                 }
                                                 ?>
     </select>
-                                 
-                                 
-                                 
+
+
+
                                <label for="designation"><b>Designation </b></label>
                                             <select id="designation" name="designation">
                                                 <?php foreach ($designations as $designation) { ?>
@@ -209,66 +209,65 @@ body {font-family: Arial, Helvetica, sans-serif;}
                                                 }
                                                 ?>
                                             </select>
-                                        
+
   <br>
-   <label for="userpic"><b>UserPic </b></label>                                      
+   <label for="userpic"><b>UserPic </b></label>
   <input type="file" id="userpic" name="userpic">
-                                        
-                                    
-                                    
-                                    
+
+
+
+
    <label for="gender"><b>Male </b></label>
-                                 
+
               <input type="radio" name="gender" id="gender" value="male"   >
-              
-            
+
+
    <label for="gender"><b>Female </b></label>
               <input type="radio" name="gender" id="gender" value="female" checked>
               <br>
-              
+
               <label for="email"><b>Email</b></label>
     <input type="text" id="email2" name="email" placeholder="Email" >
-                                        
-                                        
-            <label for="Number"><b>Phone Number</b></label>                             
-                                        
-                                        
+
+
+            <label for="Number"><b>Phone Number</b></label>
+
+
     <input type="text" id="number" name="number" placeholder="Number">
        <br>
-            <label for="Address"><b>Address</b></label>  
-    <input type="text" id="address" name="address" placeholder="Address" >                           
+            <label for="Address"><b>Address</b></label>
+    <input type="text" id="address" name="address" placeholder="Address" >
                 <br>
-            <label for="citypro"><b>City, Province</b></label>                             
-        
-    <input type="text" id="text" name="city_pro" placeholder="City, Province">
-                                        
-            <label for="postcode"><b>Postal code</b></label>                             
-        
-        
-    <input type="text" id="text" name="post" placeholder="Postal Code">
-                                        
-        <label for="occupation"><b>Occupation</b></label>                             
-                                        
-    <input id="occupation" type="text" name="occupation" placeholder="Occupation">
-          
-        <label for="password"><b>Password</b></label>                             
-          
-    <input id="password" type="password" name="password" placeholder="Password" required>
-                            
-        
-        <label for="cpassword"><b>Confirm Password</b></label>                             
-                            
-                            
-    <input id="password2" type="password" name="password2" placeholder="Confirm Password" required>
-                                  
-    
+            <label for="citypro"><b>City, Province</b></label>
 
-    <button type="submit" class="btn" name="s1">Login</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    <input type="text" id="text" name="city_pro" placeholder="City, Province">
+
+            <label for="postcode"><b>Postal code</b></label>
+
+
+    <input type="text" id="text" name="post" placeholder="Postal Code">
+
+        <label for="occupation"><b>Occupation</b></label>
+
+    <input id="occupation" type="text" name="occupation" placeholder="Occupation">
+
+        <label for="password"><b>Password</b></label>
+
+    <input id="password" type="password" name="password" placeholder="Password" required>
+
+
+        <label for="cpassword"><b>Confirm Password</b></label>
+
+
+    <input id="password2" type="password" name="password2" placeholder="Confirm Password" required>
+
+
+
+    <button type="submit" class="btn" name="s1">Create</button>
     <?php
 	$active=$_SESSION["admin_name"].'@admin ';
 	//print"$active";
-	
+
 	?>
   </form>
 </div>
@@ -285,39 +284,39 @@ function closeForm() {
 
 </body>
 </html>
-                             
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>
