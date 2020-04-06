@@ -7,67 +7,24 @@ if(!isset($_SESSION['admin_name']) && !isset($_SESSION['password'])) {
 }
 
 include '../../src/common/DBConnection.php';
-
+require_once("vars.php");
 $conn=new DBConnection();
 
 $departments=$conn->getAll("SELECT * FROM `departments`");
 
 $designations=$conn->getAll("SELECT * FROM `employee_designations`");
-
 ?>
                                 
-                                  
-									
-	<?php
-include_once("vars.php");
-if(isset($_POST["submit"]))
-{
 
-	//file upload
-$fname=$_FILES["userpic"]["name"];
-$err=$_FILES["userpic"]["error"];
-$tempname=$_FILES["userpic"]["tmp_name"];
-if($err==0)
-{
-		move_uploaded_file($tempname,"uploads/$fname");
 
-}
-	$name=$_POST["firstName"];
-	$lastname=$_POST["lastName"];
-	$dept=$_POST["department"];
-	$desig=$_POST["designation"];
-	
-	$gender=$_POST["gender"];
-	$email=$_POST["email"];
-	$mobile=$_POST["number"];
-	$address=$_POST["address"];
-	$city=$_POST["city_pro"];
-	$ocupation=$_POST["occupation"];
-	$password=$_POST["password"];
-	
-	$active=$_SESSION["admin_name"].'@admin ';
-	 $mydt="". date("Y/m/d" ) . "" ;
-	
-	
 
-$conn=mysqli_connect(host,user,pass,dbname) or die("Error in connection" .mysqli_connect_error());
-	$q="insert into employees(first_name,last_name,department,designation,password,gender,email,address,post_code,city_pro,profile_pic,mobile_no,create_by,created_date,) values('$name','$lastname','$dept','$desig','gender','$email','$mobile','$address','$city','$fname','$occupation','$passsword','$active','$mydt')";
-$res=mysqli_query($conn,$q) or die("Error in query" . mysqli_error($conn));
-	//$x=mysqli_fetch_array($res);
-	$count=mysqli_affected_rows($conn);
-	mysqli_close($conn);
-	
-	if($count==0)
-	{
-		print "There seems to be problem , please try again";
-		
-	}
-	else 
-	{
-		print "New Employee Created......";
-}
-}
+
+
+<?php
+//require_once("design.php");
+
 ?>
+    
 									
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +35,7 @@ $res=mysqli_query($conn,$q) or die("Error in query" . mysqli_error($conn));
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Human Resource Management </title>
+    <title>Human Resource</title>
 
     <!-- Bootstrap -->
     <link href="../../resource/css/bootstrap.css" rel="stylesheet">
@@ -123,184 +80,244 @@ $res=mysqli_query($conn,$q) or die("Error in query" . mysqli_error($conn));
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Put your employee information <small>correctly</small></h2>
-                                <ul class="nav navbar-right panel_toolbox">
-                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Settings 1</a>
-                                            </li>
-                                            <li><a href="#">Settings 2</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                                    </li>
-                                </ul>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
+                               
 
-                                <form action="addemp.php" method="post" enctype="multipart/form-data" name="form1" class="form-horizontal form-label-left" >
+    <?php
+//	require_once("emp1.html");
+	
+	?>
+  <!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
 
-                                    <p> <code></code> 
-                                    </p>
-                                    <span class="section">Employee Info</span>
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
 
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firstName">First Name <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="firstName" class="form-control col-md-7 col-xs-12" data-validate-length-rang="" data-validate-word="20" name="firstName" placeholder="Jon" required type="text">
-                                        </div>
-                                    </div>
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: absolute;
+  bottom: 100;
+  right: 0px;
+  left:-19px;
+  align:center;
+  
+  border: 3px solid #f1f1f1;
+  z-index: 0;
+}
 
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastName">Last Name <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="lastName" class="form-control col-md-7 col-xs-12" data-validate-length-rang="" data-validate-word="" name="lastName" placeholder="Doe" required type="text">
-                                        </div>
-                                    </div>
+/* Add styles to the form container */
+.form-container {
+  max-width: 2100px;
+  padding: 10px;
+  background-color: white;
+  scrolling:on;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password], .form-container input[type=file] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus, .form-container input[type=number]:focus, .form-container select {
+  background-color: #ddd;
+  outline: none;
+}
+
+.form-container input[type=]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<div style="float:right;align:center;">
+<button class="open-button" onclick="openForm()">Open Form</button>
+</div>
+<div class="form-popup" id="myForm">
+  <form action="addemp.php" method="post" enctype="multipart/form-data" class="form-container">
+    <h1>Enter Details</h1>
 
 
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="department">Department <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <select id="department" name="department">
+    
+       <label for="firstname"><b>First Name</b></label>
+ 
+    <input name="firstName" placeholder="Jon" required type="text">
+ 
+   <label for="lastname"><b>Last Name </b></label>
+    
+   <input name="lastName" placeholder="Doe" required type="text">
+   <label for="department"><b>Department </b></label>
+      
+       <select id="department" name="department">
                                                 <?php foreach ($departments as $department) { ?>
-                                                <option value="<?=$department['id']?>"><?=$department['name']?></option>
+                                                <option value="<?=$department['name']?>"><?=$department['name']?></option>
                                                 <?php
                                                 }
                                                 ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="designation">Designation <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
+    </select>
+                                 
+                                 
+                                 
+                               <label for="designation"><b>Designation </b></label>
                                             <select id="designation" name="designation">
                                                 <?php foreach ($designations as $designation) { ?>
-                                                    <option value="<?=$designation['id']?>"><?=$designation['title']?></option>
+                                                    <option value="<?=$designation['title']?>"><?=$designation['title']?></option>
                                                     <?php
                                                 }
                                                 ?>
                                             </select>
-                                        </div>
-                                    </div>
-
- <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Employee Pic <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="file" id="userpic" name="user_pic" data-validate-linke="pic" required class="form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
+                                        
+  <br>
+   <label for="userpic"><b>UserPic </b></label>                                      
+  <input type="file" id="userpic" name="userpic">
+                                        
                                     
                                     
                                     
-                                    
-                                    
-                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Gender<span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                           <label>
-              <input type="radio" name="gender" id="gender" value="male"  class="form-control col-md-7 col-xs-12" >
-              Male </label>
-            <label>
-              <input type="radio" name="gender" id="gender" value="female" class="form-control col-md-7 col-xs-12" checked>
-              Female</label>      
-                                        </div>
-                                    </div>
-                                    
-                                    
-
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">Email <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="email" id="email2" name="email" data-validate-linke="email" required class="form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Mobile Number <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="number" id="number" name="number" required data-validate-minma="10,100" class="form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
+   <label for="gender"><b>Male </b></label>
+                                 
+              <input type="radio" name="gender" id="gender" value="male"   >
+              
+            
+   <label for="gender"><b>Female </b></label>
+              <input type="radio" name="gender" id="gender" value="female" checked>
+              <br>
+              
+              <label for="email"><b>Email</b></label>
+    <input type="text" id="email2" name="email" placeholder="Email" >
+                                        
+                                        
+            <label for="Number"><b>Phone Number</b></label>                             
+                                        
+                                        
+    <input type="text" id="number" name="number" placeholder="Number">
+       <br>
+            <label for="Address"><b>Address</b></label>  
+    <input type="text" id="address" name="address" placeholder="Address" >                           
+                <br>
+            <label for="citypro"><b>City, Province</b></label>                             
+        
+    <input type="text" id="text" name="city_pro" placeholder="City, Province">
+                                        
+            <label for="postcode"><b>Postal code</b></label>                             
+        
+        
+    <input type="text" id="text" name="post" placeholder="Postal Code">
+                                        
+        <label for="occupation"><b>Occupation</b></label>                             
+                                        
+    <input id="occupation" type="text" name="occupation" placeholder="Occupation">
+          
+        <label for="password"><b>Password</b></label>                             
+          
+    <input id="password" type="password" name="password" placeholder="Password" required>
+                            
+        
+        <label for="cpassword"><b>Confirm Password</b></label>                             
+                            
+                            
+    <input id="password2" type="password" name="password2" placeholder="Confirm Password" required>
                                   
-                                  
-                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Address <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea id="text" name="address" required data-validate-minma="10,100" class="form-control col-md-7 col-xs-12">
-                                       </textarea>
-                                        </div>
-                                    </div>
-                                     <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">City, Province <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="text" name="city_pro" required data-validate-minma="10,100" class="form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
-                                  
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="number">Postal Code <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="text" name="post" required data-validate-minma="10,100" class="form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
-                                  
-                                    <div class="item form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Occupation <span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="occupation" type="text" name="occupation" data-validate-length-range="5,20" class="optional form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label for="password" class="control-label col-md-3">Password</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="password" type="password" name="password" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required>
-                                        </div>
-                                    </div>
-                                    <div class="item form-group">
-                                        <label for="password2" class="control-label col-md-3 col-sm-3 col-xs-12">Repeat Password</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required>
-                                        </div>
-                                    </div>
-                                   
-                                  
-                                    <div class="ln_solid"></div>
-                                    <div class="form-group">
-                                        <div class="col-md-6 col-md-offset-3">
-                                            <input type="submit" name="Cancel" value="Cancel" class="btn btn-primary">
-                                               <input type="submit" name="submit" id="submit" value="Signup" class="btn btn-success"/>
-                                        </div>
-                                    </div>
-    <?php //print$_SESSION["admin_name"].'@admin ';
-	 $mydt="". date("Y/m/d" ) . "" ;
-	//$myt="". date("h:i:sa") .""
-//	print $mydt;
-	 ?>
-	
-                                    
     
-								
-                                    
-                                </form>
+
+    <button type="submit" class="btn" name="s1">Login</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+    <?php
+	$active=$_SESSION["admin_name"].'@admin ';
+	//print"$active";
+	
+	?>
+  </form>
+</div>
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+
+</body>
+</html>
+                             
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
                             </div>
                         </div>
                     </div>
@@ -329,3 +346,18 @@ $res=mysqli_query($conn,$q) or die("Error in query" . mysqli_error($conn));
 <script src="../../resource/js/custom.min.js"></script>
 </body>
 </html>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
